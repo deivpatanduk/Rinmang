@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />"
+    <title>HAPPY BIRTHDAY RIRIN MANGALLO</title>
+    <style>
+        body {
+            background-image: url('8ae0767a-91cb-43eb-aff1-e7feee5ebee6.jpg');
+            background-size: cover;
+            background-position: center 40%;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            font-family: Arial, sans-serif;
+            position: relative; 
+            overflow: hidden;
+
+
+        }
+        h1 {
+            font-size: clamp(36px, 8vw, 85px);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: -250px;
+            background: linear-gradient(90deg, #0c08f0, #da168f, #ff9a9e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+        img {
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            position: absolute;
+            width: 150px;
+            z-index: 1;
+            transform-origin: center center; 
+            will-change: transform;         
+            }
+
+        @keyframes pulse {
+            0%   { transform: scale(1); }
+            25%  { transform: scale(1.12); } 
+            50%  { transform: scale(1); }
+            75%  { transform: scale(0.9); } 
+            100% { transform: scale(1); }
+            }
+
+        img:first-of-type {
+            bottom: 40px;
+            left: 40px;
+            animation: pulse 2.4s ease-in-out infinite;
+            }
+
+        img:last-of-type {
+            bottom: 40px;
+            right: 40px;
+            animation: pulse 2.6s ease-in-out infinite;
+            animation-delay: 0.3s;
+            }
+
+        .confetti-piece {
+            position: fixed;
+            width: 10px;
+            height: 14px;
+            border-radius: 2px;
+            pointer-events: none;
+            z-index: 9999;
+            will-change: transform, opacity;
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>HAPPY BIRTHDAY RIRIN MANGALLO</h1>
+    <img src="0b233c7c-c375-46d3-b4ad-88858a9d9b43.jpg" alt="Foto Fakyu Ririn">
+    <img src="8c403527-20c4-49ae-ba41-d4e1614c5508.jpg" alt="Foto Ririn Senyum">
+
+
+    <script>
+        // 🎉 Confetti berkelanjutan
+        const colors = ['#ff6b6b','#ffd166','#06d6a0','#4d8cff','#9b5de5','#f15bb5','#ffd4a3'];
+        const rand = (min,max)=> Math.random()*(max-min)+min;
+
+        function makeConfettiPiece(leftPercent){
+            const el = document.createElement('div');
+            el.className = 'confetti-piece';
+            const w = Math.round(rand(6,14));
+            const h = Math.round(w * 1.2);
+            el.style.width = w + 'px';
+            el.style.height = h + 'px';
+            el.style.left = (leftPercent ?? rand(10,90)) + 'vw';
+            el.style.top  = rand(-10,5) + 'vh';
+            el.style.background = colors[Math.floor(rand(0,colors.length))];
+            document.body.appendChild(el);
+
+            const rotate = rand(-720,720);
+            const translateX = rand(-40,40);
+            const translateY = rand(80,140);
+            const duration = Math.round(rand(2200,4200));
+
+            requestAnimationFrame(()=> {
+                el.style.transition = `transform ${duration}ms cubic-bezier(.2,.7,.2,1), opacity ${duration}ms linear`;
+                el.style.transform = `translate(${translateX}vw, ${translateY}vh) rotate(${rotate}deg)`;
+                el.style.opacity = '0';
+            });
+
+            setTimeout(()=> el.remove(), duration + 100);
+        }
+
+        function burst(count = 60){
+            for(let i=0;i<count;i++){
+                const left = 10 + (80 * (i / count)) + rand(-4,4);
+                setTimeout(()=> makeConfettiPiece(left), i * 8);
+            }
+        }
+
+        // Jalankan confetti terus menerus setiap 1 detik
+        window.addEventListener('load', ()=> {
+            burst(80); // ledakan awal
+            setInterval(()=> burst(30), 1000); // setiap 1 detik tambah confetti baru
+        });
+    </script>
+</body>
+</html>
